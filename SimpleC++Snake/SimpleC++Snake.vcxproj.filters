@@ -21,57 +21,57 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\New C++ Game - Copy\New C++ Game\platform_commands.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\New C++ Game - Copy\New C++ Game\renderer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\New C++ Game - Copy\New C++ Game\utilities.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\New C++ Game - Copy\New C++ Game\object_manager.h">
-      <Filter>Header Files\Objects</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\New C++ Game - Copy\New C++ Game\player_object.h">
-      <Filter>Header Files\Objects</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\New C++ Game - Copy\New C++ Game\score_object.h">
-      <Filter>Header Files\Objects</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\New C++ Game - Copy\New C++ Game\game.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="..\..\New C++ Game - Copy\New C++ Game\todo.txt">
-      <Filter>Resource Files</Filter>
-    </Text>
-    <Text Include="..\..\New C++ Game - Copy\New C++ Game\settings.txt">
-      <Filter>Resource Files</Filter>
-    </Text>
-    <Text Include="..\..\New C++ Game - Copy\New C++ Game\outline.txt">
-      <Filter>Resource Files</Filter>
-    </Text>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="..\..\New C++ Game - Copy\New C++ Game\platform_commands.cpp">
+    <ClCompile Include="game.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\New C++ Game - Copy\New C++ Game\renderer.cpp">
+    <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\New C++ Game - Copy\New C++ Game\utilities.cpp">
+    <ClCompile Include="platform_commands.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\New C++ Game - Copy\New C++ Game\game.cpp">
+    <ClCompile Include="renderer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\New C++ Game - Copy\New C++ Game\main.cpp">
+    <ClCompile Include="utilities.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\New C++ Game - Copy\New C++ Game\player_object.cpp">
+    <ClCompile Include="player_object.cpp">
       <Filter>Source Files\Objects</Filter>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="outline.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="settings.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="todo.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="game.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="platform_commands.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="renderer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="utilities.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="object_manager.h">
+      <Filter>Header Files\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="player_object.h">
+      <Filter>Header Files\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="score_object.h">
+      <Filter>Header Files\Objects</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -18,6 +18,28 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="game.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="platform_commands.cpp" />
+    <ClCompile Include="player_object.cpp" />
+    <ClCompile Include="renderer.cpp" />
+    <ClCompile Include="utilities.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="outline.txt" />
+    <Text Include="settings.txt" />
+    <Text Include="todo.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="game.h" />
+    <ClInclude Include="object_manager.h" />
+    <ClInclude Include="platform_commands.h" />
+    <ClInclude Include="player_object.h" />
+    <ClInclude Include="renderer.h" />
+    <ClInclude Include="score_object.h" />
+    <ClInclude Include="utilities.h" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
@@ -126,28 +148,6 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClInclude Include="..\..\New C++ Game - Copy\New C++ Game\game.h" />
-    <ClInclude Include="..\..\New C++ Game - Copy\New C++ Game\object_manager.h" />
-    <ClInclude Include="..\..\New C++ Game - Copy\New C++ Game\platform_commands.h" />
-    <ClInclude Include="..\..\New C++ Game - Copy\New C++ Game\player_object.h" />
-    <ClInclude Include="..\..\New C++ Game - Copy\New C++ Game\renderer.h" />
-    <ClInclude Include="..\..\New C++ Game - Copy\New C++ Game\score_object.h" />
-    <ClInclude Include="..\..\New C++ Game - Copy\New C++ Game\utilities.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="..\..\New C++ Game - Copy\New C++ Game\outline.txt" />
-    <Text Include="..\..\New C++ Game - Copy\New C++ Game\settings.txt" />
-    <Text Include="..\..\New C++ Game - Copy\New C++ Game\todo.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="..\..\New C++ Game - Copy\New C++ Game\game.cpp" />
-    <ClCompile Include="..\..\New C++ Game - Copy\New C++ Game\main.cpp" />
-    <ClCompile Include="..\..\New C++ Game - Copy\New C++ Game\platform_commands.cpp" />
-    <ClCompile Include="..\..\New C++ Game - Copy\New C++ Game\player_object.cpp" />
-    <ClCompile Include="..\..\New C++ Game - Copy\New C++ Game\renderer.cpp" />
-    <ClCompile Include="..\..\New C++ Game - Copy\New C++ Game\utilities.cpp" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

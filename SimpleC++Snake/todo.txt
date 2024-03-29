@@ -1,0 +1,16 @@
+todo list:
+make player sprite not cover the entire tilemap's color up
+
+1.  get player on screen
+2.  get player moving on screen
+3.  get player moving within the bounds of the squares
+4.  get food on screen within bounds of the squares
+5.  get food collision done
+6.  get wall collision done
+7.  get segment adding done
+8.  get proper snake movement done.
+9.  add score counter
+10. add pause screen
+11. add menu screen with clickable buttons.
+12. add settings customization
+13. add new modes
