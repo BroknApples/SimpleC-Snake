@@ -4,6 +4,8 @@
 #include "utilities.h"
 #include "object_manager.h"
 
+
+// Each new length of snake added
 class PlayerSegment {
 
 private:
@@ -18,20 +20,26 @@ public:
 	inline int getX() const { return xPos; }
 	inline int getY() const { return yPos; }
 	inline uint32 getColor() const { return color; }
-	inline void updateX(int newX) { 
-		xPos += newX;
-		xPos = clamp(0, xPos, tilemapSizeX - 1);
-	}
-	inline void updateY(int newY) { 
-		yPos += newY;
-		yPos = clamp(0, yPos, tilemapSizeY - 1);
-	}
+
+	void update(int xVel, int yVel);
+	void draw();
 };
 
+// Linked List of segments
+struct SegmentList {
+	std::unique_ptr<PlayerSegment> segment;
+
+	int pastXVel = 0;
+	int pastYVel = 0;
+
+	std::shared_ptr<SegmentList> next;
+};
+
+// Player character
 class PlayerObject : public WorldObject {
 
 private:
-	std::vector<std::shared_ptr<PlayerSegment>> segments;
+	std::shared_ptr<SegmentList> segmentsHead;
 
 	int xVelocity;
 	int yVelocity;
@@ -43,14 +51,16 @@ public:
 	PlayerObject(uint32 spriteColor);
 	~PlayerObject();
 
-	inline void init() override { 
-		addSegment(1, 1);
-		id = getNewObjectID();
+	inline void updateVelocity(const int xVelocity, const int yVelocity) {
+		this->xVelocity = xVelocity;
+		this->yVelocity = yVelocity;
 	}
 
-	void update();
+	void addSegment();
 
-	void addSegment(int xPos, int yPos);
+	void init() override;
+	void update() override;
+	void draw() override;
 };
 
 #endif

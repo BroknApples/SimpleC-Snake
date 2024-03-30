@@ -5,7 +5,7 @@
 // add object manager;
 ObjectManager objectManager;
 
-auto& player(objectManager.addObject<PlayerObject>());
+auto& player(objectManager.addObject<PlayerObject>(BEAUTIFULBLUE));
 auto& score(objectManager.addObject<ScoreObject>());
 
 Game::Game(HWND* window, HDC* hdc) {
@@ -16,12 +16,7 @@ Game::Game(HWND* window, HDC* hdc) {
 
 	for (int i = 0; i < tilemapSizeX; i++) {
 		for (int j = 0; j < tilemapSizeY; j++) {
-			if ((i % 2) == (j % 2)) {
-				tilemap[i][j] = 0x007a21;
-			}
-			else {
-				tilemap[i][j] = 0x00b515;
-			}
+			tilemap[i][j] = calculateTileColor(i, j);
 		}
 	}
 }
@@ -70,6 +65,7 @@ void Game::input() {
 void Game::update() {
 	// hit detection, number generators, input-based changes, etc.
 	objectManager.update();
+
 	updateFromInputs();
 }
 
@@ -77,6 +73,7 @@ void Game::draw() {
 	clearScreen(0x0f3814);
 
 	renderTilemap(tilemap);
+	objectManager.draw();
 
 
 	StretchDIBits(*hdc, 0, 0, renderer.width, renderer.height, 0, 0, renderer.width, renderer.height,

@@ -60,7 +60,7 @@ public:
 	
 	inline void draw() {
 		for (auto& obj : objects) {
-			obj->update();
+			obj->draw();
 		}
 	}
 };

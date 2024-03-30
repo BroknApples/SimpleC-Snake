@@ -48,8 +48,15 @@ constexpr uint32 VK_X = 0x58;
 constexpr uint32 VK_Y = 0x59;
 constexpr uint32 VK_Z = 0x5A;
 
+// tilemap
 constexpr int tilemapSizeX = 21;
 constexpr int tilemapSizeY = 21;
+
+// colors
+constexpr uint32 LIGHTGREEN = 0x007a21;
+constexpr uint32 DARKGREEN = 0x00b515;
+constexpr uint32 BEAUTIFULBLUE = 0x262afd;
+
 //******************Typedefs, Constexprs, & Defines******************
 
 //******************Structs/Classes******************
@@ -61,6 +68,8 @@ struct RenderState {
 //******************Structs/Classes******************
 
 //******************Functions*****************
+uint32 calculateTileColor(const int xPos, const int yPos);
+
 inline int clamp(int min, int val, int max) {
 	if		(val < min) return min;
 	else if (val > max) return max;
@@ -72,7 +81,8 @@ inline int clamp(int min, int val, int max) {
 extern RenderState renderer;
 extern bool running;
 extern float scale;
-extern int velocityScale;
+extern int velocityScaleX;
+extern int velocityScaleY;
 extern std::array<std::array<uint32, tilemapSizeY>, tilemapSizeX> tilemap;
 //******************Global Variables******************
 
