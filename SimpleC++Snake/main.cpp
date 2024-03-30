@@ -88,7 +88,7 @@ int __stdcall WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdL
 
 	readFile.open(settings);
 	if (!readFile.is_open()) {
-		frames = 4;
+		frames = 60;
 	}
 	else {
 		readFile >> frames;

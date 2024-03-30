@@ -1,5 +1,9 @@
 todo list:
 make player sprite not cover the entire tilemap's color up
+ADD NEW SEGEMENTS TO SNAKE AND FINISH THE VELOCITY TRAIL
+
+TO MAKE VELOCITY/TIME SCALE INDEPENDANT OF FPS, 
+	make velocityScale = 1/fps or 3/fps etc to keep it consistent i think
 
 1.  get player on screen
 2.  get player moving on screen

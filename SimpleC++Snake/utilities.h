@@ -16,7 +16,6 @@
 //******************Typedefs, Constexprs, & Defines******************
 #define IS_DOWN(b) inputs.buttons[b].is_down
 #define PRESSED(b) inputs.buttons[b].is_down && inputs.buttons[b].changed
-#define CHANGED(b) !(inputs.buttons[b].is_down && inputs.buttons[b].changed
 
 typedef unsigned int uint32;
 
@@ -49,8 +48,8 @@ constexpr uint32 VK_Y = 0x59;
 constexpr uint32 VK_Z = 0x5A;
 
 // tilemap
-constexpr int tilemapSizeX = 21;
-constexpr int tilemapSizeY = 21;
+constexpr int tilemapSizeX = 101;
+constexpr int tilemapSizeY = 101;
 
 // colors
 constexpr uint32 LIGHTGREEN = 0x007a21;

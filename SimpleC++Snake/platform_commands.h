@@ -3,12 +3,13 @@
 
 #include "utilities.h"
 #include "renderer.h"
+#include "object_manager.h"
 
 struct Input;
 
 struct ButtonState {
-	bool is_down = 0;
-	bool changed = 0;
+	bool is_down = false;
+	bool changed = false;
 };
 
 enum { // holds every button action in the game
@@ -30,8 +31,8 @@ struct Input {
 };
 
 
-void inputProccessing(uint32 vk_code, bool is_down);
-void updateFromInputs();
+void inputProcessing(uint32 vk_code, bool is_down);
+void updateVelocityFromInputs(PlayerObject& player);
 
 extern Input inputs;
 

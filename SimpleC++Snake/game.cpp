@@ -38,9 +38,9 @@ void Game::pause() {
 
 void Game::input() {
 	MSG message;
-	while (PeekMessage(&message, *window, 0, 0, PM_REMOVE)) {
+	if (PeekMessage(&message, *window, 0, 0, PM_REMOVE)) {
 		// userInput
-		for (int i = 0; i < BUTTON_COUNT; i++) {
+		for (int i = 0; i < BUTTON_COUNT; i++) { // resets changed to false;
 			inputs.buttons[i].changed = false;
 		}
 
@@ -48,9 +48,9 @@ void Game::input() {
 			case WM_KEYUP:
 			case WM_KEYDOWN: {
 				uint32 vk_code = static_cast<uint32>(message.wParam);
-				bool is_down = ((message.lParam & (1 << 32)) == 0);
+				bool is_down = ((message.lParam & (1 << 31)) == 0);
 
-				inputProccessing(vk_code, is_down);
+				inputProcessing(vk_code, is_down);
 			} break;
 			default: {
 				break;
@@ -64,9 +64,9 @@ void Game::input() {
 
 void Game::update() {
 	// hit detection, number generators, input-based changes, etc.
-	objectManager.update();
+	updateVelocityFromInputs(player);
 
-	updateFromInputs();
+	objectManager.update();
 }
 
 void Game::draw() {

@@ -76,6 +76,12 @@ void PlayerObject::init() {
 }
 
 void PlayerObject::update() {
+	int tempX = segmentsHead->pastXVel;
+	int tempY = segmentsHead->pastYVel;
+
+	segmentsHead->pastXVel = xVelocity;
+	segmentsHead->pastYVel = yVelocity;
+
 	std::shared_ptr<SegmentList> temp = segmentsHead;
 	while (temp != nullptr) {
 		temp->segment->update(temp->pastXVel, temp->pastYVel);

@@ -51,6 +51,8 @@ public:
 	PlayerObject(uint32 spriteColor);
 	~PlayerObject();
 
+	inline int getXVelocity() { return xVelocity; }
+	inline int getYVelocity() { return yVelocity; }
 	inline void updateVelocity(const int xVelocity, const int yVelocity) {
 		this->xVelocity = xVelocity;
 		this->yVelocity = yVelocity;
