@@ -75,7 +75,6 @@ void Game::draw() {
 	renderTilemap(tilemap);
 	objectManager.draw();
 
-
 	StretchDIBits(*hdc, 0, 0, renderer.width, renderer.height, 0, 0, renderer.width, renderer.height,
 		renderer.memory, &renderer.bitmap_info, DIB_RGB_COLORS, SRCCOPY);
 }

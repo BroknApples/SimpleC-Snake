@@ -2,41 +2,50 @@
 
 // *pixel++ = static_cast<uint32>(sqrt((x * x) + (y * y)) / 9); looks cool ig
 
-void renderTilemap(std::array<std::array<uint32, tilemapSizeY>, tilemapSizeX> tilemap) {
+void renderTilemap(std::array<std::array<uint32, tilemapSizeY>, tilemapSizeX> tilemap) {	
+	// Width and height of each square
+	float widthPercent = 100.0f / tilemapSizeX;
+	float heightPercent = 100.0f / tilemapSizeY;
+
+	// Percent of the screen we should start renderering at
+	float startXPercent = 0.0f;
+	float startYPercent = 0.0f;
+
 	int min = min(renderer.height, renderer.width);
 	int max = max(renderer.height, renderer.width);
 
-	int tilePixelLengthX = min / tilemapSizeX;
-	int tilePixelLengthY = min / tilemapSizeY;
-
-	int startX;
-	int startY;
 	if (renderer.width > renderer.height) {
-		startX = (max - min) / 2;
-		startY = 0;
+		startXPercent = (static_cast<float>(max - min) / (2 * min)) * 100.0f;
+		startYPercent = 0.0f;
 	}
 	else {
-		startX = 0;
-		startY = (max - min) / 2;
+		startXPercent = 0.0f;
+		startYPercent = (static_cast<float>(max - min) / (2 * min)) * 100.0f;
 	}
 
-	int remainderX = renderer.width % tilePixelLengthX;
-	int remainderY = renderer.height % tilePixelLengthY;
+	// Convert startX, startY, width, and height percent to be scaled based
+	// on the renderer.width and renderer.height, not the min of the two
+	widthPercent  = ((widthPercent  * min) / renderer.width);
+	heightPercent = ((heightPercent * min) / renderer.height);
+
+	startXPercent = ((startXPercent * min) / renderer.width);
+	startYPercent = ((startYPercent * min) / renderer.height);
 
 	for (int i = 0; i < tilemapSizeX; i++) {
 		for (int j = 0; j < tilemapSizeY; j++) {
-			drawRectInPixels((i * tilePixelLengthX) + startX + (remainderX / 2),
-							 (j * tilePixelLengthY) + startY + (remainderY / 2),
-							 (i * tilePixelLengthX) + startX + (remainderX / 2) + tilePixelLengthX,
-							 (j * tilePixelLengthY) + startY + (remainderY / 2) + tilePixelLengthY,
-							 tilemap[i][j]);
+			drawRectInPercent(startXPercent + (i * widthPercent),
+							  startYPercent + (j * heightPercent),
+							  startXPercent + ((i + 1) * widthPercent),
+							  startYPercent + ((j + 1) * heightPercent),
+							  tilemap[i][j]);
 		}
 	}
 
-	leftWall   = startX;
-	rightWall  = startY;
-	bottomWall = startX + (tilemapSizeX * tilePixelLengthX);
-	topWall    = startY + (tilemapSizeY * tilePixelLengthY);
+	leftWall   = static_cast<int>(startXPercent  * min);
+	rightWall  = static_cast<int>(startYPercent  * min);
+	bottomWall = static_cast<int>((startXPercent * min) + (tilemapSizeX * widthPercent * min));
+	topWall    = static_cast<int>((startYPercent * min) + (tilemapSizeY * heightPercent * min));
+	
 }
 
 void clearScreen(uint32 color) {
@@ -63,21 +72,23 @@ void drawRectInPixels(int x0, int y0, int x1, int y1, uint32 color) {
 	}
 }
 
-void drawRect(float x, float y, float half_x, float half_y, uint32 color) {
-	// Maintain relative position
-	x	  *= renderer.height;
-	half_x *= renderer.height;
-	y	  *= renderer.height;
-	half_y *= renderer.height;
+void drawRectInPercent(float x0, float y0, float x1, float y1, uint32 color) {
+	// clamp value between 0 and 100
+	x0 = clamp(0, x0, 100);
+	y0 = clamp(0, y0, 100);
+	x1 = clamp(0, x1, 100);
+	y1 = clamp(0, y1, 100);
 
-	x += static_cast<float>(renderer.width) / 2.0f;
-	y += static_cast<float>(renderer.height) / 2.0f;
+	// change value to a percentage
+	x0 *= 0.01f;
+	y0 *= 0.01f;
+	x1 *= 0.01f;
+	y1 *= 0.01f;
 
-	//Change percent value to pixels;
-	int x0 = static_cast<int>(x - half_x);
-	int x1 = static_cast<int>(x + half_y);
-	int y0 = static_cast<int>(y - half_x);
-	int y1 = static_cast<int>(y + half_y);
+	int pixelX0 = static_cast<int>(static_cast<float>(renderer.width)  * x0);
+	int pixelY0 = static_cast<int>(static_cast<float>(renderer.height) * y0);
+	int pixelX1 = static_cast<int>(static_cast<float>(renderer.width)  * x1);
+	int pixelY1 = static_cast<int>(static_cast<float>(renderer.height) * y1);
 
-	drawRectInPixels(x0, y0, x1, y1, color);
+	drawRectInPixels(pixelX0, pixelY0, pixelX1, pixelY1, color);
 }

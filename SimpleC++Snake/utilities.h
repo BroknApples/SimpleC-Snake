@@ -9,7 +9,6 @@
 #include <chrono>
 #include <string>
 #include <thread>
-#include <algorithm>
 #include <utility>
 #include <array>
 
@@ -48,8 +47,8 @@ constexpr uint32 VK_Y = 0x59;
 constexpr uint32 VK_Z = 0x5A;
 
 // tilemap
-constexpr int tilemapSizeX = 101;
-constexpr int tilemapSizeY = 101;
+constexpr int tilemapSizeX = 99;
+constexpr int tilemapSizeY = 99;
 
 // colors
 constexpr uint32 LIGHTGREEN = 0x007a21;
@@ -69,9 +68,9 @@ struct RenderState {
 //******************Functions*****************
 uint32 calculateTileColor(const int xPos, const int yPos);
 
-inline int clamp(int min, int val, int max) {
-	if		(val < min) return min;
-	else if (val > max) return max;
+template <typename T1, typename T2, typename T3> inline T2 clamp(T1 min, T2 val, T3 max) {
+	if		(val < min) return static_cast<T2>(min);
+	else if (val > max) return static_cast<T2>(max);
 	else				return val;
 }
 //******************Functions******************

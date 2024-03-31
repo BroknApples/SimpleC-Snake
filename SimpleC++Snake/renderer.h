@@ -14,6 +14,6 @@ void clearScreen(uint32 color);
 
 void drawRectInPixels(int x0, int y0, int x1, int y1, uint32 color);
 
-void drawRect(float x, float y, float halfX, float halfY, uint32 color);
+void drawRectInPercent(float x0, float y0, float x1, float y1, uint32 color);
 
 #endif

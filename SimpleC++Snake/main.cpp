@@ -63,7 +63,7 @@ int __stdcall WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdL
 	window_class.style = CS_HREDRAW | CS_VREDRAW;
 	window_class.lpszClassName = "Game Window Class";
 	window_class.lpfnWndProc = windowCallback;
-	const char* title = "First Game";
+	const char* title = "Simple C++ Snake";
 
 	// Register Class
 	RegisterClass(&window_class);
@@ -71,7 +71,7 @@ int __stdcall WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdL
 	// Create window
 	// lpClassName, lpWindowName, dwStyle, x, y, nWidth, nHeight, hWndParent,hMenu, hInstance, lpParam
 	HWND window = CreateWindow(window_class.lpszClassName, title, WS_OVERLAPPEDWINDOW | WS_VISIBLE,
-		CW_USEDEFAULT, CW_USEDEFAULT, 720, 720, 0, 0, hInstance, 0);
+		CW_USEDEFAULT, CW_USEDEFAULT, 1080, 720, 0, 0, hInstance, 0);
 	HDC hdc = GetDC(window);
 	//**************************Window Management**************************
 
