@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="food_object.cpp" />
     <ClCompile Include="game.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="platform_commands.cpp" />
@@ -32,6 +33,7 @@
     <Text Include="todo.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="food_object.h" />
     <ClInclude Include="game.h" />
     <ClInclude Include="object_manager.h" />
     <ClInclude Include="platform_commands.h" />

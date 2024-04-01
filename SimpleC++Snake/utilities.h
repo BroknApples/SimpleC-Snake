@@ -11,6 +11,7 @@
 #include <thread>
 #include <utility>
 #include <array>
+#include <random>
 
 //******************Typedefs, Constexprs, & Defines******************
 #define IS_DOWN(b) inputs.buttons[b].is_down
@@ -47,8 +48,8 @@ constexpr uint32 VK_Y = 0x59;
 constexpr uint32 VK_Z = 0x5A;
 
 // tilemap
-constexpr int tilemapSizeX = 99;
-constexpr int tilemapSizeY = 99;
+constexpr int tilemapSizeX = 31;
+constexpr int tilemapSizeY = 31;
 
 // colors
 constexpr uint32 LIGHTGREEN = 0x007a21;

@@ -96,8 +96,8 @@ int __stdcall WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdL
 
 	readFile.close();
 
-	const int fps = frames;
-	const int frameDelay = 1000000 / fps;
+	const int FPS = frames;
+	const int FRAME_DELAY = 1000000 / FPS;
 
 	game->init();
 	while (running) {
@@ -108,10 +108,10 @@ int __stdcall WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdL
 		game->draw();
 
 		auto frameEnd = std::chrono::high_resolution_clock::now(); 
-		auto frameTime = std::chrono::duration_cast<std::chrono::microseconds>(frameBegin - frameEnd);
+		const auto FRAME_TIME = std::chrono::duration_cast<std::chrono::microseconds>(frameEnd - frameBegin);
 
-		if (frameDelay > frameTime.count()) {
-			std::this_thread::sleep_for(std::chrono::microseconds(frameDelay - frameTime.count()));
+		if (FRAME_DELAY > FRAME_TIME.count()) {
+			std::this_thread::sleep_for(std::chrono::microseconds(FRAME_DELAY - FRAME_TIME.count()));
 		}
 	}
 }

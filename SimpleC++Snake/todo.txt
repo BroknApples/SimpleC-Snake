@@ -1,18 +1,12 @@
-todo list:
-make player sprite not cover the entire tilemap's color up
-ADD NEW SEGMENTS TO SNAKE AND FINISH THE VELOCITY TRAIL
-
-TO MAKE VELOCITY/TIME SCALE INDEPENDANT OF FPS, 
+MAKE VELOCITY/TIME SCALE INDEPENDANT OF FPS, 
 	make velocityScale = 1/fps or 3/fps etc to keep it consistent i think
-
 
 0.  add smooth snake movement
 1.  get food on screen within bounds of the squares
 2.  get food collision done
 3.  get wall collision done
-4.  get segment adding done
-5.  add score counter
-6. add pause screen
-7. add menu screen with clickable buttons.
-8. add settings customization
-9. add new modes
+4.  add score counter
+5. add pause screen
+6. add menu screen with clickable buttons.
+7. add settings customization
+8. add new modes

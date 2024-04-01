@@ -5,25 +5,45 @@ void inputProcessing(uint32 vk_code, bool is_down) {
 		case VK_UP:
 		case VK_W:
 			inputs.buttons[BUTTON_MOVEUP].is_down = is_down;
-			inputs.buttons[BUTTON_MOVEUP].changed = true;
+			if (!inputs.buttons[BUTTON_MOVEUP].changed) {
+				inputs.buttons[BUTTON_MOVEUP].changed = true;
+			}
+			else {
+				inputs.buttons[BUTTON_MOVEUP].changed = false;
+			}
 			break;
 
 		case VK_LEFT:
 		case VK_A:
 			inputs.buttons[BUTTON_MOVELEFT].is_down = is_down;
-			inputs.buttons[BUTTON_MOVELEFT].changed = true;
+			if (!inputs.buttons[BUTTON_MOVELEFT].changed) {
+				inputs.buttons[BUTTON_MOVELEFT].changed = true;
+			}
+			else {
+				inputs.buttons[BUTTON_MOVELEFT].changed = false;
+			}
 			break;
 
 		case VK_DOWN:
 		case VK_S:
 			inputs.buttons[BUTTON_MOVEDOWN].is_down = is_down;
-			inputs.buttons[BUTTON_MOVEDOWN].changed = true;
+			if (!inputs.buttons[BUTTON_MOVEDOWN].changed) {
+				inputs.buttons[BUTTON_MOVEDOWN].changed = true;
+			}
+			else {
+				inputs.buttons[BUTTON_MOVEDOWN].changed = false;
+			}
 			break;
 
 		case VK_D:
 		case VK_RIGHT:
 			inputs.buttons[BUTTON_MOVERIGHT].is_down = is_down;
-			inputs.buttons[BUTTON_MOVERIGHT].changed = true;
+			if (!inputs.buttons[BUTTON_MOVERIGHT].changed) {
+				inputs.buttons[BUTTON_MOVERIGHT].changed = true;
+			}
+			else {
+				inputs.buttons[BUTTON_MOVERIGHT].changed = false;
+			}
 			break;
 	}
 }

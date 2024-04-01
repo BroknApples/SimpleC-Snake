@@ -20,6 +20,8 @@ void PlayerSegment::update(int xVel, int yVel) {
 }
 
 void PlayerSegment::draw() {
+	// must be within bounds of leftWall, rightWall, topWall, bottomWall
+	// incrementPos val by velocity * the velocity scale
 	tilemap[xPos][yPos] = color;
 }
 
@@ -56,7 +58,7 @@ void PlayerObject::addSegment() {
 	newNode->pastXVel = temp->pastXVel;
 	newNode->pastYVel = temp->pastYVel;
 	newNode->segment = std::make_unique<PlayerSegment>
-		(temp->segment->getX(), temp->segment->getY(), BEAUTIFULBLUE);
+		(temp->segment->getX() - temp->pastXVel, temp->segment->getY() - temp->pastYVel, BEAUTIFULBLUE);
 
 	// append to end of list
 	temp->next = newNode;
@@ -72,20 +74,33 @@ void PlayerObject::init() {
 	if (tilemapSizeY % 2 == 0) halfY = tilemapSizeY / 2;
 	else					   halfY = (tilemapSizeY / 2) + 1;
 
-	segmentsHead->segment = std::make_unique<PlayerSegment>(1, halfY, BEAUTIFULBLUE);
+	segmentsHead->segment = std::make_unique<PlayerSegment>(5, halfY, BEAUTIFULBLUE);
 }
 
 void PlayerObject::update() {
-	int tempX = segmentsHead->pastXVel;
-	int tempY = segmentsHead->pastYVel;
+	int tempX_1 = segmentsHead->pastXVel;
+	int tempY_1 = segmentsHead->pastYVel;
 
 	segmentsHead->pastXVel = xVelocity;
 	segmentsHead->pastYVel = yVelocity;
 
 	std::shared_ptr<SegmentList> temp = segmentsHead;
+	temp->segment->update(temp->pastXVel, temp->pastYVel);
+	temp = temp->next;
+
 	while (temp != nullptr) {
+		int tempX_2 = temp->pastXVel;
+		int tempY_2 = temp->pastYVel;
+
+		temp->pastXVel = tempX_1;
+		temp->pastYVel = tempY_1;
+
 		temp->segment->update(temp->pastXVel, temp->pastYVel);
+
 		temp = temp->next;
+		
+		tempX_1 = tempX_2;
+		tempY_1 = tempY_2;
 	}
 }
 
@@ -94,7 +109,7 @@ void PlayerObject::draw() {
 	while (temp != nullptr) {
 		temp->segment->draw();
 
-		// remove last node's position
+		// remove last node's position, // remove this code block once I change my snake renderering method
 		if (temp->next == nullptr) {
 			tilemap[(temp->segment->getX() - (temp->pastXVel * velocityScaleX))]
 				   [(temp->segment->getY() - (temp->pastYVel * velocityScaleY))]
@@ -103,8 +118,5 @@ void PlayerObject::draw() {
 		}
 
 		temp = temp->next;
-
-		// tilemap[x - (xVelocity * velocityScaleX)][y - (yVelocity * velocityScaleY)]
-		//	= calculateTileColor((x + (xVelocity * velocityScaleX)), (y + (yVelocity * velocityScaleY)));
 	}
 }

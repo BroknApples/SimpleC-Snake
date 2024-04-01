@@ -25,6 +25,8 @@ Game::~Game() {}
 
 void Game::init() {
 	player.init();
+	for (int i = 0; i < 5; i++)
+		player.addSegment();
 	score.init();
 }
 

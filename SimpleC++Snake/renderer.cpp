@@ -2,14 +2,14 @@
 
 // *pixel++ = static_cast<uint32>(sqrt((x * x) + (y * y)) / 9); looks cool ig
 
-void renderTilemap(std::array<std::array<uint32, tilemapSizeY>, tilemapSizeX> tilemap) {	
+void renderTilemap(std::array<std::array<uint32, tilemapSizeY>, tilemapSizeX>& tilemap) {	
 	// Width and height of each square
-	float widthPercent = 100.0f / tilemapSizeX;
-	float heightPercent = 100.0f / tilemapSizeY;
+	widthPercent = 100.0f / tilemapSizeX;
+	heightPercent = 100.0f / tilemapSizeY;
 
 	// Percent of the screen we should start renderering at
-	float startXPercent = 0.0f;
-	float startYPercent = 0.0f;
+	startXPercent = 0.0f;
+	startYPercent = 0.0f;
 
 	int min = min(renderer.height, renderer.width);
 	int max = max(renderer.height, renderer.width);
@@ -90,5 +90,7 @@ void drawRectInPercent(float x0, float y0, float x1, float y1, uint32 color) {
 	int pixelX1 = static_cast<int>(static_cast<float>(renderer.width)  * x1);
 	int pixelY1 = static_cast<int>(static_cast<float>(renderer.height) * y1);
 
+	// possible change this to consider the max and min of the same axis to allow for
+	// renderering something with bounds such as (50, 50, 25, 25, COLOR) instead of only (25, 25, 50, 50, COLOR)
 	drawRectInPixels(pixelX0, pixelY0, pixelX1, pixelY1, color);
 }

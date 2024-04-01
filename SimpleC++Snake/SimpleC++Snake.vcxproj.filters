@@ -39,6 +39,9 @@
     <ClCompile Include="player_object.cpp">
       <Filter>Source Files\Objects</Filter>
     </ClCompile>
+    <ClCompile Include="food_object.cpp">
+      <Filter>Source Files\Objects</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Text Include="outline.txt">
@@ -71,6 +74,9 @@
       <Filter>Header Files\Objects</Filter>
     </ClInclude>
     <ClInclude Include="score_object.h">
+      <Filter>Header Files\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="food_object.h">
       <Filter>Header Files\Objects</Filter>
     </ClInclude>
   </ItemGroup>

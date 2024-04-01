@@ -8,7 +8,12 @@ static int rightWall;
 static int bottomWall;
 static int topWall;
 
-void renderTilemap(std::array<std::array<uint32, tilemapSizeY>, tilemapSizeX> tilemap);
+static float widthPercent;
+static float heightPercent;
+static float startXPercent;
+static float startYPercent;
+
+void renderTilemap(std::array<std::array<uint32, tilemapSizeY>, tilemapSizeX>& tilemap);
 
 void clearScreen(uint32 color);
 
