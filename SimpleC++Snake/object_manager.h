@@ -2,6 +2,9 @@
 #define OBJECT_MANAGER_H
 
 #include "utilities.h"
+#include "renderer.h"
+
+class ObjectManager;
 
 static int objectID = 0;
 
@@ -19,12 +22,7 @@ struct WorldObject {
 
 	inline int getObjectID() const { return id; }
 
-	void updatePosition() {
-
-	}
-	void checkCollision() {
-
-	}
+	virtual void checkCollision(int xPos, int yPos, uint32 color) {}
 };
 
 #include "player_object.h"
@@ -36,20 +34,23 @@ private:
 	std::vector<std::shared_ptr<WorldObject>> objects;
 
 public:
-
 	template <typename T, typename... TArgs> T& addObject(TArgs&&... mArgs) {
 		T* obj = new T(mArgs...);
 
 		std::shared_ptr<T> ptr{ obj };
 		objects.emplace_back(std::move(ptr));
 
-		obj->init();
-
 		return *obj;
 	}
 
 	void removeObject(int id) {
 		objects.erase(objects.begin() + id);
+	}
+
+	inline void init() {
+		for (auto& obj : objects) {
+			obj->init();
+		}
 	}
 
 	inline void update() {

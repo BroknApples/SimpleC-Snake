@@ -9,17 +9,20 @@
 class PlayerSegment {
 
 private:
-	int xPos;
-	int yPos;
-	
+	float xPos;
+	float yPos;
+
 	uint32 color;
 
 public:
-	PlayerSegment(int xPos, int yPos, uint32 color);
+	PlayerSegment(float xPos, float yPos, uint32 color);
 
-	inline int getX() const { return xPos; }
-	inline int getY() const { return yPos; }
+	inline float getX() const { return xPos; }
+	inline float getY() const { return yPos; }
 	inline uint32 getColor() const { return color; }
+
+	inline void floorX() { xPos = floor(xPos); }
+	inline void floorY() { yPos = floor(yPos); }
 
 	void update(int xVel, int yVel);
 	void draw();
@@ -44,6 +47,9 @@ private:
 	int xVelocity;
 	int yVelocity;
 
+	bool gotFood;
+	bool isDead;
+
 	uint32 spriteColor;
 
 public:
@@ -51,14 +57,20 @@ public:
 	PlayerObject(uint32 spriteColor);
 	~PlayerObject();
 
-	inline int getXVelocity() { return xVelocity; }
-	inline int getYVelocity() { return yVelocity; }
+	inline std::shared_ptr<SegmentList> getSegmentsHead() { return segmentsHead; }
+	inline int getXVelocity() const { return xVelocity; }
+	inline int getYVelocity() const { return yVelocity; }
+	inline uint32 getColor() const { return spriteColor; }
+	inline bool getHealthState() const { return isDead; }
+	inline bool getFoodState() const { return gotFood; }
+
 	inline void updateVelocity(const int xVelocity, const int yVelocity) {
 		this->xVelocity = xVelocity;
 		this->yVelocity = yVelocity;
 	}
 
 	void addSegment();
+	void checkCollision(int xPos, int yPos, uint32 snakeColor) override;
 
 	void init() override;
 	void update() override;

@@ -3,15 +3,17 @@
 
 #include "utilities.h"
 
-static int leftWall;
-static int rightWall;
-static int bottomWall;
-static int topWall;
+extern float widthPercent;
+extern float heightPercent;
+extern float startXPercent;
+extern float startYPercent;
 
-static float widthPercent;
-static float heightPercent;
-static float startXPercent;
-static float startYPercent;
+extern int rendererMin;
+extern int rendererMax;
+
+void renderBackground();
+
+void updateVars();
 
 void renderTilemap(std::array<std::array<uint32, tilemapSizeY>, tilemapSizeX>& tilemap);
 

@@ -1,36 +1,54 @@
 #include "renderer.h"
 
-// *pixel++ = static_cast<uint32>(sqrt((x * x) + (y * y)) / 9); looks cool ig
+extern float widthPercent = 0;
+extern float heightPercent = 0;
+extern float startXPercent = 0;
+extern float startYPercent = 0;
 
-void renderTilemap(std::array<std::array<uint32, tilemapSizeY>, tilemapSizeX>& tilemap) {	
+extern int rendererMin = 0;
+extern int rendererMax = 0;
+
+void renderBackground() {
+	// Tilemap Border
+	drawRectInPercent(startXPercent - 2.5f,
+					  startYPercent - 2.5f,
+					  startXPercent + (tilemapSizeX * widthPercent)  + 2.5f,
+					  startYPercent + (tilemapSizeY * heightPercent) + 2.5f,
+					  DARKERGREEN);
+	// Game Header Bar
+	drawRectInPercent(0.0f, 95.0f, 100.0f, 100.0f, DARKESTGREEN);
+}
+
+void updateVars() {
+	rendererMin = min(renderer.width, renderer.height);
+	rendererMax = max(renderer.width, renderer.height);
 	// Width and height of each square
-	widthPercent = 100.0f / tilemapSizeX;
-	heightPercent = 100.0f / tilemapSizeY;
+	widthPercent = 95.0f / tilemapSizeX;
+	heightPercent = 90.0f / tilemapSizeY;
 
 	// Percent of the screen we should start renderering at
 	startXPercent = 0.0f;
 	startYPercent = 0.0f;
 
-	int min = min(renderer.height, renderer.width);
-	int max = max(renderer.height, renderer.width);
-
 	if (renderer.width > renderer.height) {
-		startXPercent = (static_cast<float>(max - min) / (2 * min)) * 100.0f;
+		startXPercent = (static_cast<float>(rendererMax - rendererMin) / (2 * rendererMin)) * 100.0f;
 		startYPercent = 0.0f;
 	}
 	else {
 		startXPercent = 0.0f;
-		startYPercent = (static_cast<float>(max - min) / (2 * min)) * 100.0f;
+		startYPercent = (static_cast<float>(rendererMax - rendererMin) / (2 * rendererMin)) * 100.0f;
 	}
 
 	// Convert startX, startY, width, and height percent to be scaled based
-	// on the renderer.width and renderer.height, not the min of the two
-	widthPercent  = ((widthPercent  * min) / renderer.width);
-	heightPercent = ((heightPercent * min) / renderer.height);
+	// on the renderer.width and renderer.height, not the rendererMin of the two
+	widthPercent = ((widthPercent * rendererMin) / renderer.width);
+	heightPercent = ((heightPercent * rendererMin) / renderer.height);
 
-	startXPercent = ((startXPercent * min) / renderer.width);
-	startYPercent = ((startYPercent * min) / renderer.height);
+	startXPercent = ((startXPercent * rendererMin) / renderer.width) + 2.5f;
+	startYPercent = ((startYPercent * rendererMin) / renderer.height) + 2.5f;
+}
 
+void renderTilemap(std::array<std::array<uint32, tilemapSizeY>, tilemapSizeX>& tilemap) {
 	for (int i = 0; i < tilemapSizeX; i++) {
 		for (int j = 0; j < tilemapSizeY; j++) {
 			drawRectInPercent(startXPercent + (i * widthPercent),
@@ -40,12 +58,6 @@ void renderTilemap(std::array<std::array<uint32, tilemapSizeY>, tilemapSizeX>& t
 							  tilemap[i][j]);
 		}
 	}
-
-	leftWall   = static_cast<int>(startXPercent  * min);
-	rightWall  = static_cast<int>(startYPercent  * min);
-	bottomWall = static_cast<int>((startXPercent * min) + (tilemapSizeX * widthPercent * min));
-	topWall    = static_cast<int>((startYPercent * min) + (tilemapSizeY * heightPercent * min));
-	
 }
 
 void clearScreen(uint32 color) {
@@ -90,7 +102,7 @@ void drawRectInPercent(float x0, float y0, float x1, float y1, uint32 color) {
 	int pixelX1 = static_cast<int>(static_cast<float>(renderer.width)  * x1);
 	int pixelY1 = static_cast<int>(static_cast<float>(renderer.height) * y1);
 
-	// possible change this to consider the max and min of the same axis to allow for
+	// possible change this to consider the rendererMax and rendererMin of the same axis to allow for
 	// renderering something with bounds such as (50, 50, 25, 25, COLOR) instead of only (25, 25, 50, 50, COLOR)
 	drawRectInPixels(pixelX0, pixelY0, pixelX1, pixelY1, color);
 }

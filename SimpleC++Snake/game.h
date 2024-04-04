@@ -20,6 +20,8 @@ public:
 	void init();
 
 	void pause();
+	void gameOver();
+
 	void input(); // user inputs
 	void update(); // game logic and input-based changes
 	void draw(); // render to screen

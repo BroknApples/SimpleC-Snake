@@ -8,7 +8,26 @@
 //******************Functions******************
 uint32 calculateTileColor(const int xPos, const int yPos) {
 	if ((xPos % 2) == (yPos % 2)) return LIGHTGREEN;
-	else			  return DARKGREEN;
+	else			  return SLIGHTLYDARKGREEN;
+}
+
+int getFPS() {
+	std::ifstream readFile;
+	std::string settings = "settings.txt";
+
+	short frames;
+
+	readFile.open(settings);
+	if (!readFile.is_open()) {
+		frames = 60;
+	}
+	else {
+		readFile >> frames;
+	}
+
+	readFile.close();
+
+	return frames;
 }
 //******************Functions******************
 
@@ -16,7 +35,8 @@ uint32 calculateTileColor(const int xPos, const int yPos) {
 RenderState renderer = { NULL };
 bool running = true;
 float scale = 0.01f;
-int velocityScaleX = 1;
-int velocityScaleY = 1;
+float velocityScaleX = 0.20f;
+float velocityScaleY = velocityScaleX;
 std::array<std::array<uint32, tilemapSizeY>, tilemapSizeX> tilemap = { NULL };
+uint32 runNumber = 0;
 //******************Global Variables******************

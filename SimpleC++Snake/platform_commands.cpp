@@ -54,25 +54,29 @@ void updateVelocityFromInputs(PlayerObject& player) {
 
 	// move up
 	if (PRESSED(BUTTON_MOVEUP)) {
-		if (player.getYVelocity() < 0) return;
+		if (player.getSegmentsHead()->pastYVel < 0) return;
+
 		xVel = 0;
 		yVel = 1;
 	}
 	// move left
 	else if (PRESSED(BUTTON_MOVELEFT)) {
-		if (player.getXVelocity() > 0) return;
+		if (player.getSegmentsHead()->pastXVel > 0) return;
+
 		xVel = -1;
 		yVel = 0;
 	}
 	// move down
 	else if (PRESSED(BUTTON_MOVEDOWN)) {
-		if (player.getYVelocity() > 0) return;
+		if (player.getSegmentsHead()->pastYVel > 0) return;
+
 		xVel = 0;
 		yVel = -1;
 	}
 	// move right
 	else if (PRESSED(BUTTON_MOVERIGHT)) {
-		if (player.getXVelocity() < 0) return;
+		if (player.getSegmentsHead()->pastXVel < 0) return;
+
 		xVel = 1;
 		yVel = 0;
 	}

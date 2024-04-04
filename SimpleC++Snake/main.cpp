@@ -80,22 +80,9 @@ int __stdcall WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdL
 
 	Game* game = new Game(&window, &hdc);
 
-	std::ifstream readFile;
-	std::string settings = "settings.txt";
-
 	// Framerate lock
-	short frames;
-
-	readFile.open(settings);
-	if (!readFile.is_open()) {
-		frames = 60;
-	}
-	else {
-		readFile >> frames;
-	}
-
-	readFile.close();
-
+	int frames = getFPS();
+	
 	const int FPS = frames;
 	const int FRAME_DELAY = 1000000 / FPS;
 
@@ -113,5 +100,6 @@ int __stdcall WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdL
 		if (FRAME_DELAY > FRAME_TIME.count()) {
 			std::this_thread::sleep_for(std::chrono::microseconds(FRAME_DELAY - FRAME_TIME.count()));
 		}
+		runNumber++;
 	}
 }

@@ -48,13 +48,17 @@ constexpr uint32 VK_Y = 0x59;
 constexpr uint32 VK_Z = 0x5A;
 
 // tilemap
-constexpr int tilemapSizeX = 31;
-constexpr int tilemapSizeY = 31;
+constexpr int tilemapSizeX = 15;
+constexpr int tilemapSizeY = 15;
 
 // colors
 constexpr uint32 LIGHTGREEN = 0x007a21;
-constexpr uint32 DARKGREEN = 0x00b515;
+constexpr uint32 SLIGHTLYDARKGREEN = 0x00b515;
+constexpr uint32 DARKGREEN = 0x0f3814;
+constexpr uint32 DARKERGREEN = 0x003900;
+constexpr uint32 DARKESTGREEN = 0x002000;
 constexpr uint32 BEAUTIFULBLUE = 0x262afd;
+
 
 //******************Typedefs, Constexprs, & Defines******************
 
@@ -68,10 +72,11 @@ struct RenderState {
 
 //******************Functions*****************
 uint32 calculateTileColor(const int xPos, const int yPos);
+int getFPS();
 
-template <typename T1, typename T2, typename T3> inline T2 clamp(T1 min, T2 val, T3 max) {
-	if		(val < min) return static_cast<T2>(min);
-	else if (val > max) return static_cast<T2>(max);
+template <typename T1, typename T2, typename T3> inline T2 clamp(T1 rendererMin, T2 val, T3 rendererMax) {
+	if		(val < rendererMin) return static_cast<T2>(rendererMin);
+	else if (val > rendererMax) return static_cast<T2>(rendererMax);
 	else				return val;
 }
 //******************Functions******************
@@ -80,9 +85,10 @@ template <typename T1, typename T2, typename T3> inline T2 clamp(T1 min, T2 val,
 extern RenderState renderer;
 extern bool running;
 extern float scale;
-extern int velocityScaleX;
-extern int velocityScaleY;
+extern float velocityScaleX;
+extern float velocityScaleY;
 extern std::array<std::array<uint32, tilemapSizeY>, tilemapSizeX> tilemap;
+extern uint32 runNumber;
 //******************Global Variables******************
 
 #endif

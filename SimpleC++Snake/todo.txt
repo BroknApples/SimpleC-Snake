@@ -1,7 +1,5 @@
-MAKE VELOCITY/TIME SCALE INDEPENDANT OF FPS, 
-	make velocityScale = 1/fps or 3/fps etc to keep it consistent i think
+// TODO not deleting the last position properly
 
-0.  add smooth snake movement
 1.  get food on screen within bounds of the squares
 2.  get food collision done
 3.  get wall collision done

@@ -24,10 +24,11 @@ Game::Game(HWND* window, HDC* hdc) {
 Game::~Game() {}
 
 void Game::init() {
-	player.init();
-	for (int i = 0; i < 5; i++)
+	updateVars();
+	objectManager.init();
+
+	for (int i = 0; i < 3; i++)
 		player.addSegment();
-	score.init();
 }
 
 void Game::pause() {
@@ -36,6 +37,11 @@ void Game::pause() {
 	while (!unpause) {
 		// check if user presses unpause key or clicks resume button
 	}
+}
+
+void Game::gameOver() {
+	// for now just pause the game
+	pause();
 }
 
 void Game::input() {
@@ -65,16 +71,30 @@ void Game::input() {
 }
 
 void Game::update() {
-	// hit detection, number generators, input-based changes, etc.
+	updateVars();
+
+	// Collision
+	if (player.getHealthState()) {
+		gameOver();
+	}
+
+	/*if (player.getFoodState()) {
+		score_object.updatePoints(1);
+	} */
+	
 	updateVelocityFromInputs(player);
 
+	//if (runNumber % 180 == 0) player.addSegment();
+
+	// Update all entities
 	objectManager.update();
 }
 
 void Game::draw() {
-	clearScreen(0x0f3814);
-
+	clearScreen(0x000000);
+	renderBackground();
 	renderTilemap(tilemap);
+
 	objectManager.draw();
 
 	StretchDIBits(*hdc, 0, 0, renderer.width, renderer.height, 0, 0, renderer.width, renderer.height,
