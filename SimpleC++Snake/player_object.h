@@ -21,9 +21,6 @@ public:
 	inline float getY() const { return yPos; }
 	inline uint32 getColor() const { return color; }
 
-	inline void floorX() { xPos = floor(xPos); }
-	inline void floorY() { yPos = floor(yPos); }
-
 	void update(int xVel, int yVel);
 	void draw();
 };

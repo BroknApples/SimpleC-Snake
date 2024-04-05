@@ -14,7 +14,7 @@ void PlayerSegment::update(int xVel, int yVel) {
 }
 
 void PlayerSegment::draw() {
-	tilemap[static_cast<int>(floor(xPos))][static_cast<int>(floor(yPos))] = color;
+	tilemap[static_cast<int>(round(xPos))][static_cast<int>(round(yPos))] = color;
 }
 
 //************************************************************************
@@ -101,16 +101,16 @@ void PlayerObject::update() {
 
 	std::shared_ptr<SegmentList> temp = segmentsHead;
 
-	if (runNumber % static_cast<int>( 1.0f / velocityScaleX) == 0) {
+	if (runNumber % static_cast<int>(1.0f / velocityScaleX) == 0) {
 		segmentsHead->pastXVel = xVelocity;
 		segmentsHead->pastYVel = yVelocity;
 
 		// Check collision in new position
-		checkCollision(static_cast<int>(floor(temp->segment->getX() + temp->pastXVel)),
-			           static_cast<int>(floor(temp->segment->getY() + temp->pastYVel)),
-			           temp->segment->getColor());
+		checkCollision(static_cast<int>(round(temp->segment->getX() + temp->pastXVel)),
+					   static_cast<int>(round(temp->segment->getY() + temp->pastYVel)),
+					   temp->segment->getColor());
 	}
-	
+
 	temp->segment->update(temp->pastXVel, temp->pastYVel);
 	temp = temp->next;
 	
@@ -122,7 +122,6 @@ void PlayerObject::update() {
 			temp->pastXVel = tempX_1;
 			temp->pastYVel = tempY_1;
 		}
-
 		
 		temp->segment->update(temp->pastXVel, temp->pastYVel);
 		
@@ -142,11 +141,8 @@ void PlayerObject::draw() {
 		temp = temp->next;
 	}
 
-	/*
 	// Remove the last node's position
-	int xArg = static_cast<int>(floor(temp->segment->getX()) - (temp->pastXVel * velocityScaleX));
-	int yArg = static_cast<int>(floor(temp->segment->getY()) - (temp->pastYVel * velocityScaleY));
+	int xArg = static_cast<int>(round(temp->segment->getX() - (temp->pastXVel * velocityScaleX)));
+	int yArg = static_cast<int>(round(temp->segment->getY() - (temp->pastYVel * velocityScaleY)));	
 	tilemap[xArg][yArg] = calculateTileColor(xArg, yArg);
-
-	*/
 }

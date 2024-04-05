@@ -34,8 +34,8 @@ int getFPS() {
 //******************Global Variables******************
 RenderState renderer = { NULL };
 bool running = true;
-float scale = 0.01f;
-float velocityScaleX = 0.20f;
+float scale = 0.2f;
+float velocityScaleX = 0.2f;
 float velocityScaleY = velocityScaleX;
 std::array<std::array<uint32, tilemapSizeY>, tilemapSizeX> tilemap = { NULL };
 uint32 runNumber = 0;
