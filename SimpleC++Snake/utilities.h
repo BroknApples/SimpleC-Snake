@@ -60,7 +60,6 @@ constexpr uint32 DARKESTGREEN = 0x002000;
 constexpr uint32 BEAUTIFULBLUE = 0x262afd;
 constexpr uint32 APPLERED = 0xfc0140;
 
-
 //******************Typedefs, Constexprs, & Defines******************
 
 //******************Structs/Classes******************

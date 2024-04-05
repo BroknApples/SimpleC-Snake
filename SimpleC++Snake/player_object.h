@@ -1,7 +1,6 @@
 #ifndef PLAYER_OBJECT_H
 #define PLAYER_OBJECT_H
 
-#include "utilities.h"
 #include "object_manager.h"
 
 

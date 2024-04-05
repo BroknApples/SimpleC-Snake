@@ -21,11 +21,13 @@ struct WorldObject {
 	virtual void draw() {}
 
 	inline int getObjectID() const { return id; }
+	inline void setID(int id) { this->id = id; }
 
 	virtual void checkCollision(int xPos, int yPos, uint32 color) {}
 };
 
 #include "player_object.h"
+#include "food_object.h"
 #include "score_object.h"
 
 class ObjectManager {
@@ -36,6 +38,7 @@ private:
 public:
 	template <typename T, typename... TArgs> T& addObject(TArgs&&... mArgs) {
 		T* obj = new T(mArgs...);
+		obj->setID(getNewObjectID());
 
 		std::shared_ptr<T> ptr{ obj };
 		objects.emplace_back(std::move(ptr));

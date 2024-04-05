@@ -5,6 +5,7 @@
 // add object manager;
 ObjectManager objectManager;
 
+auto& food(objectManager.addObject<FoodObject>(APPLERED, 1));
 auto& player(objectManager.addObject<PlayerObject>(BEAUTIFULBLUE));
 auto& score(objectManager.addObject<ScoreObject>());
 
@@ -40,7 +41,7 @@ void Game::pause() {
 }
 
 void Game::gameOver() {
-	// for now just pause the game
+	// just pause the game for now
 	pause();
 }
 
@@ -88,6 +89,9 @@ void Game::update() {
 
 	// Update all entities
 	objectManager.update();
+	if (food.getEatenState()) {
+		player.addSegment();
+	}
 }
 
 void Game::draw() {

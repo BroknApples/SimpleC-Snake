@@ -1,10 +1,8 @@
-// TODO not deleting the last position properly
+// TODO fix thrown exception when picking up food
 
-1.  get food on screen within bounds of the squares
-2.  get food collision done
-3.  get wall collision done
-4.  add score counter
-5. add pause screen
-6. add menu screen with clickable buttons.
-7. add settings customization
-8. add new modes
+
+1.  add score counter
+2. add pause screen
+2. add menu screen with clickable buttons.
+3. add settings customization
+4. add new modes

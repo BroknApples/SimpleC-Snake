@@ -1,7 +1,6 @@
 #ifndef FOOD_OBJECT_H
 #define FOOD_OBJECT_H
 
-#include "utilities.h"
 #include "object_manager.h"
 
 class FoodObject : public WorldObject {
@@ -15,9 +14,13 @@ private:
 	bool eaten;
 
 	int pointValue;
+	int totalPoints;
 
 public:
 	FoodObject(uint32 color, int pointValue);
+
+	inline int getPoints() { return totalPoints; }
+	inline int getEatenState() { return eaten; }
 
 	void init() override;
 	void update() override;
