@@ -65,16 +65,16 @@ void renderScore(HWND* hWnd, int score) {
 	std::wstring stemp = std::wstring(scoreStr.begin(), scoreStr.end());
 	LPCWSTR sw = stemp.c_str();
 	CreateWindowW(L"static", L"Score: ", WS_VISIBLE | WS_CHILD,
-		          ((startXPercent / 100.0f) * renderer.width),
+		          static_cast<int>((startXPercent / 100.0f) * renderer.width),
 		          0,
 		          50,
-		          (renderer.height * 0.05),
+				  static_cast<int>(renderer.height * 0.05),
 		          *hWnd, NULL, NULL, NULL);
 	CreateWindowW(L"static", sw, WS_VISIBLE | WS_CHILD,
-				  ((startXPercent / 100.0f) * renderer.width) + 50,
+				  static_cast<int>((startXPercent / 100.0f) * renderer.width) + 50,
 				  0,
 				  50,
-				  (renderer.height * 0.05),
+				  static_cast<int>(renderer.height * 0.05),
 				  *hWnd, NULL, NULL, NULL);
 }
 
