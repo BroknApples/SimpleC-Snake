@@ -22,6 +22,8 @@ public:
 	Game(HWND* window, HDC* hdc, ObjectManager* objectManager, FoodObject* food, PlayerObject* player, ScoreObject* score);
 	~Game();
 
+	inline int getScore() { return finalScore; }
+
 	void init();
 
 	void gameOver();

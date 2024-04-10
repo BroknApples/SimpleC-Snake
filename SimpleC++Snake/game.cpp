@@ -32,6 +32,7 @@ void Game::init() {
 }
 
 void Game::gameOver() {
+	finalScore = score->getScore();
 	renderScore(window, finalScore);
 	running = false;
 }
@@ -60,7 +61,6 @@ void Game::update() {
 
 	// If the snake has collided with something other than food
 	if (player->getHealthState()) {
-		finalScore = score->getScore();
 		gameOver();
 	}
 	
