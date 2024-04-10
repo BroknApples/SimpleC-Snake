@@ -163,6 +163,8 @@ int __stdcall WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdL
 				}
 				runNumber++;
 			}
+
+			delete game;
 		}
 	} while (choiceMade != 0);
 }
