@@ -9,15 +9,15 @@ fast the game runs and how big the tilemap is
 
 CONTROLS
 
-W - MOVE UP
-A - MOVE LEFT
-S - MOVE DOWN
-D - MOVE RIGHT
+W - MOVE UP,
+A - MOVE LEFT,
+S - MOVE DOWN,
+D - MOVE RIGHT,
 
-UPARROW - MOVE UP
-LEFTARROW - MOVE LEFT
-DOWNARROW - MOVE DOWN
-RIGHTARROW - MOVE RIGHT
+UPARROW - MOVE UP,
+LEFTARROW - MOVE LEFT,
+DOWNARROW - MOVE DOWN,
+RIGHTARROW - MOVE RIGHT,
 
 // Only works when you lose the game or a game has not begun yet
 SPACE - START NEW GAME
