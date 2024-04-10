@@ -43,7 +43,6 @@ private:
 	int xVelocity;
 	int yVelocity;
 
-	bool gotFood;
 	bool isDead;
 
 	uint32 spriteColor;
@@ -58,7 +57,6 @@ public:
 	inline int getYVelocity() const { return yVelocity; }
 	inline uint32 getColor() const { return spriteColor; }
 	inline bool getHealthState() const { return isDead; }
-	inline bool getFoodState() const { return gotFood; }
 
 	inline void updateVelocity(const int xVelocity, const int yVelocity) {
 		this->xVelocity = xVelocity;

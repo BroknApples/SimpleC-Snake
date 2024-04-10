@@ -17,6 +17,8 @@ void updateVars();
 
 void renderTilemap(std::array<std::array<uint32, tilemapSizeY>, tilemapSizeX>& tilemap);
 
+void renderScore(HWND* hWnd, int score);
+
 void clearScreen(uint32 color);
 
 void drawRectInPixels(int x0, int y0, int x1, int y1, uint32 color);

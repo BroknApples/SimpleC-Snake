@@ -29,6 +29,12 @@ int getFPS() {
 
 	return frames;
 }
+
+bool getTickState() {
+	bool val;
+	(runNumber % static_cast<int>(1.0f / velocityScaleX) == 0) ? val = true : val = false;
+	return val;
+}
 //******************Functions******************
 
 //******************Global Variables******************

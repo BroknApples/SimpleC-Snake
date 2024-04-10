@@ -9,17 +9,21 @@
 class Game {
 
 private:
+	ObjectManager* objectManager;
+	FoodObject* food;
+	PlayerObject* player;
+	ScoreObject* score;
+
 	HWND* window;
 	HDC* hdc;
-	bool paused;
+	int finalScore;
 
 public:
-	Game(HWND* window, HDC* hdc);
+	Game(HWND* window, HDC* hdc, ObjectManager* objectManager, FoodObject* food, PlayerObject* player, ScoreObject* score);
 	~Game();
 
 	void init();
 
-	void pause();
 	void gameOver();
 
 	void input(); // user inputs

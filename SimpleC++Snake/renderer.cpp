@@ -60,6 +60,24 @@ void renderTilemap(std::array<std::array<uint32, tilemapSizeY>, tilemapSizeX>& t
 	}
 }
 
+void renderScore(HWND* hWnd, int score) {
+	std::string scoreStr = std::to_string(score);
+	std::wstring stemp = std::wstring(scoreStr.begin(), scoreStr.end());
+	LPCWSTR sw = stemp.c_str();
+	CreateWindowW(L"static", L"Score: ", WS_VISIBLE | WS_CHILD,
+		          ((startXPercent / 100.0f) * renderer.width),
+		          0,
+		          50,
+		          (renderer.height * 0.05),
+		          *hWnd, NULL, NULL, NULL);
+	CreateWindowW(L"static", sw, WS_VISIBLE | WS_CHILD,
+				  ((startXPercent / 100.0f) * renderer.width) + 50,
+				  0,
+				  50,
+				  (renderer.height * 0.05),
+				  *hWnd, NULL, NULL, NULL);
+}
+
 void clearScreen(uint32 color) {
 	uint32* pixel = static_cast<uint32*>(renderer.memory);
 	for (int x = 0; x < renderer.width; x++) {

@@ -44,13 +44,10 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="outline.txt">
-      <Filter>Resource Files</Filter>
-    </Text>
     <Text Include="settings.txt">
       <Filter>Resource Files</Filter>
     </Text>
-    <Text Include="todo.txt">
+    <Text Include="food_positions.txt">
       <Filter>Resource Files</Filter>
     </Text>
   </ItemGroup>

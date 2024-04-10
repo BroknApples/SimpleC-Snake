@@ -73,6 +73,8 @@ struct RenderState {
 //******************Functions*****************
 uint32 calculateTileColor(const int xPos, const int yPos);
 int getFPS();
+bool getTickState();
+
 
 template <typename T1, typename T2, typename T3> inline T2 clamp(T1 min, T2 val, T3 max) {
 	if		(val < min) return static_cast<T2>(min);

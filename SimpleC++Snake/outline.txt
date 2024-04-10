@@ -1,7 +1,0 @@
-Snake Game Outline:
-
-Snake class, holds score, number of length segments, pos, vel, sprite, etc.
-
-food class, holds pos, score val, sprite, etc.
-
-tilemap array, holds the color of the tilemap and the size.

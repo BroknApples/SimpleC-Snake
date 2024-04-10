@@ -28,9 +28,8 @@
     <ClCompile Include="utilities.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="outline.txt" />
     <Text Include="settings.txt" />
-    <Text Include="todo.txt" />
+    <Text Include="food_positions.txt" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="food_object.h" />

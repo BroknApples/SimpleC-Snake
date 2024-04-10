@@ -1,8 +1,0 @@
-// TODO fix thrown exception when picking up food
-
-
-1.  add score counter
-2. add pause screen
-2. add menu screen with clickable buttons.
-3. add settings customization
-4. add new modes

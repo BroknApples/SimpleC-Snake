@@ -30,7 +30,7 @@ struct Input {
 	std::array<ButtonState, BUTTON_COUNT> buttons;
 };
 
-
+void getKeyStates(uint32& vk_code, bool& is_down, HWND* window);
 void inputProcessing(uint32 vk_code, bool is_down);
 void updateVelocityFromInputs(PlayerObject& player);
 

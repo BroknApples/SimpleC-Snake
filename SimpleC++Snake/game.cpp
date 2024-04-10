@@ -2,18 +2,17 @@
 
 #include <Windows.h>
 
-// add object manager;
-ObjectManager objectManager;
-
-auto& food(objectManager.addObject<FoodObject>(APPLERED, 1));
-auto& player(objectManager.addObject<PlayerObject>(BEAUTIFULBLUE));
-auto& score(objectManager.addObject<ScoreObject>());
-
-Game::Game(HWND* window, HDC* hdc) {
+Game::Game(HWND* window, HDC* hdc, ObjectManager* objectManager, FoodObject* food, PlayerObject* player, ScoreObject* score) {
 	this->window = window;
 	this->hdc = hdc;
 
-	paused = false;
+	this->objectManager = objectManager;
+	this->food = food;
+	this->player = player;
+	this->score = score;
+
+	finalScore = 0;
+	running = true;
 
 	for (int i = 0; i < tilemapSizeX; i++) {
 		for (int j = 0; j < tilemapSizeY; j++) {
@@ -26,72 +25,15 @@ Game::~Game() {}
 
 void Game::init() {
 	updateVars();
-	objectManager.init();
+	objectManager->init();
 
 	for (int i = 0; i < 3; i++)
-		player.addSegment();
-}
-
-void Game::pause() {
-	bool unpause = false;
-
-	while (!unpause) {
-		// check if user presses unpause key or clicks resume button
-	}
+		player->addSegment();
 }
 
 void Game::gameOver() {
-	// just pause the game for now
-	pause();
-}
-
-void Game::input() {
-	MSG message;
-	if (PeekMessage(&message, *window, 0, 0, PM_REMOVE)) {
-		// userInput
-		for (int i = 0; i < BUTTON_COUNT; i++) { // resets changed to false;
-			inputs.buttons[i].changed = false;
-		}
-
-		switch (message.message) {
-			case WM_KEYUP:
-			case WM_KEYDOWN: {
-				uint32 vk_code = static_cast<uint32>(message.wParam);
-				bool is_down = ((message.lParam & (1 << 31)) == 0);
-
-				inputProcessing(vk_code, is_down);
-			} break;
-			default: {
-				break;
-			}
-		}
-
-		TranslateMessage(&message);
-		DispatchMessageA(&message);
-	}
-}
-
-void Game::update() {
-	updateVars();
-
-	// Collision
-	if (player.getHealthState()) {
-		gameOver();
-	}
-
-	/*if (player.getFoodState()) {
-		score_object.updatePoints(1);
-	} */
-	
-	updateVelocityFromInputs(player);
-
-	//if (runNumber % 180 == 0) player.addSegment();
-
-	// Update all entities
-	objectManager.update();
-	if (food.getEatenState()) {
-		player.addSegment();
-	}
+	renderScore(window, finalScore);
+	running = false;
 }
 
 void Game::draw() {
@@ -99,8 +41,36 @@ void Game::draw() {
 	renderBackground();
 	renderTilemap(tilemap);
 
-	objectManager.draw();
+	objectManager->draw();
 
 	StretchDIBits(*hdc, 0, 0, renderer.width, renderer.height, 0, 0, renderer.width, renderer.height,
 		renderer.memory, &renderer.bitmap_info, DIB_RGB_COLORS, SRCCOPY);
+}
+
+void Game::input() {
+	uint32 vk_code;
+	bool is_down;
+
+	getKeyStates(vk_code, is_down, window);
+	inputProcessing(vk_code, is_down);
+}
+
+void Game::update() {
+	updateVars();
+
+	// If the snake has collided with something other than food
+	if (player->getHealthState()) {
+		finalScore = score->getScore();
+		gameOver();
+	}
+	
+	updateVelocityFromInputs(*player);
+
+	// Update all entities
+	objectManager->update();
+	if (food->getEatenState()) {
+		player->addSegment();
+	}
+
+	score->setScore(food->getPoints());
 }

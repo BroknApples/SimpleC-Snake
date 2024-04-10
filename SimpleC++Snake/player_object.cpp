@@ -26,7 +26,6 @@ PlayerObject::PlayerObject() {
 	yVelocity = 0;
 
 	isDead = false;
-	gotFood = false;
 
 	spriteColor = BEAUTIFULBLUE;
 }
@@ -36,7 +35,6 @@ PlayerObject::PlayerObject(uint32 spriteColor) {
 	yVelocity = 0;
 
 	isDead = false;
-	gotFood = false;
 
 	this->spriteColor = spriteColor;
 }
@@ -66,17 +64,17 @@ void PlayerObject::addSegment() {
 
 void PlayerObject::checkCollision(int xPos, int yPos, uint32 snakeColor) {
 	if (xPos >= tilemapSizeX || xPos < 0) {
+		// HIT RIGHT OR LEFT WALL
 		isDead = true;
 	}
 	else if (yPos >= tilemapSizeY || yPos < 0) {
+		// HIT TOP OR BOTTOM WALL
 		isDead = true;
 	}
 	else if (tilemap[xPos][yPos] == snakeColor) {
+		// RAN INTO YOUR OWN SNAKE SEGMENT
 		isDead = true;
 	}
-	/*else if (tilemap[xPos][yPos] == FOODCOLOR) {
-		gotFood = true;
-	} */
 }
 
 void PlayerObject::init() {
@@ -85,15 +83,14 @@ void PlayerObject::init() {
 	segmentsHead->pastYVel = yVelocity;
 
 	int halfY;
-	if (tilemapSizeY % 2 == 0) halfY = tilemapSizeY / 2;
-	else					   halfY = (tilemapSizeY / 2) + 1;
+	if (tilemapSizeY % 2 == 0) halfY = (tilemapSizeY / 2) + 1;
+	else					   halfY = (tilemapSizeY / 2);
 
-	segmentsHead->segment = std::make_unique<PlayerSegment>(5.0f, static_cast<int>(halfY), BEAUTIFULBLUE);
+	segmentsHead->segment = std::make_unique<PlayerSegment>(4.0f, static_cast<int>(halfY), BEAUTIFULBLUE);
 }
 
 void PlayerObject::update() {
 	// Set collisions to false
-	gotFood = false;
 	isDead = false;
 
 	int tempX_1 = segmentsHead->pastXVel;
@@ -101,7 +98,7 @@ void PlayerObject::update() {
 
 	std::shared_ptr<SegmentList> temp = segmentsHead;
 
-	if (runNumber % static_cast<int>(1.0f / velocityScaleX) == 0) {
+	if (getTickState()) {
 		segmentsHead->pastXVel = xVelocity;
 		segmentsHead->pastYVel = yVelocity;
 
@@ -118,7 +115,7 @@ void PlayerObject::update() {
 		int tempX_2 = temp->pastXVel;
 		int tempY_2 = temp->pastYVel;
 
-		if (runNumber % static_cast<int>(1.0f / velocityScaleX) == 0) {
+		if (getTickState()) {
 			temp->pastXVel = tempX_1;
 			temp->pastYVel = tempY_1;
 		}

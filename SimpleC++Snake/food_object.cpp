@@ -19,10 +19,17 @@ void FoodObject::getNewPosition() {
 	int newXPos;
 	int newYPos;
 	do {
-		// for some reason there is an exception when placing a new food occasionally
-		newXPos = rand() % (tilemapSizeX - 1);
-		newYPos = rand() % (tilemapSizeY - 1);
+		newXPos = rand() % (tilemapSizeX);
+		newYPos = rand() % (tilemapSizeY);
 	} while (tilemap[newXPos][newYPos] != calculateTileColor(newXPos, newYPos));
+
+
+	//***************DATA COLLECTION***************
+	std::ofstream writeFile;
+	writeFile.open("food_positions.txt", std::ofstream::app);
+	writeFile << "(" << newXPos << ", " << newYPos << ")\n";
+	writeFile.close();
+	//***************DATA COLLECTION***************
 
 	xPos = newXPos;
 	yPos = newYPos;
@@ -30,12 +37,19 @@ void FoodObject::getNewPosition() {
 
 
 void FoodObject::init() {
-	xPos = tilemapSizeX - (tilemapSizeX / 4);
+	xPos = tilemapSizeX - (tilemapSizeX / 4) - 1;
 
 	int halfY;
-	if (tilemapSizeY % 2 == 0) halfY = tilemapSizeY / 2;
-	else					   halfY = (tilemapSizeY / 2) + 1;
+	if (tilemapSizeY % 2 == 0) halfY = (tilemapSizeY / 2) + 1;
+	else					   halfY = (tilemapSizeY / 2);
 	yPos = halfY;
+
+	//***************DATA COLLECTION***************
+	std::ofstream writeFile;
+	writeFile.open("food_positions.txt", std::ofstream::app);
+	writeFile << "(" << xPos << ", " << yPos << ")\n";
+	writeFile.close();
+	//***************DATA COLLECTION***************
 }
 
 void FoodObject::update() {

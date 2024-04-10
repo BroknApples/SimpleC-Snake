@@ -1,7 +1,5 @@
 #include "game.h"
 
-Game* game = nullptr;
-
 LRESULT CALLBACK windowCallback(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
 	LRESULT result = 0;
 
@@ -76,30 +74,95 @@ int __stdcall WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdL
 	//**************************Window Management**************************
 
 
+	//***************DATA COLLECTION***************
+	std::ofstream writeFile;
+	// Clear all data inside file, keep outside menu screen loop
+	writeFile.open("food_positions.txt", std::ofstream::out | std::ofstream::trunc);
+	writeFile.close();
+	//***************DATA COLLECTION***************
+
 	// Game loop
+	int choiceMade;
 
-	Game* game = new Game(&window, &hdc);
-
-	// Framerate lock
-	int frames = getFPS();
-	
-	const int FPS = frames;
-	const int FRAME_DELAY = 1000000 / FPS;
-
-	game->init();
-	while (running) {
-		auto frameBegin = std::chrono::high_resolution_clock::now();
-
-		game->input();
-		game->update();
-		game->draw();
-
-		auto frameEnd = std::chrono::high_resolution_clock::now(); 
-		const auto FRAME_TIME = std::chrono::duration_cast<std::chrono::microseconds>(frameEnd - frameBegin);
-
-		if (FRAME_DELAY > FRAME_TIME.count()) {
-			std::this_thread::sleep_for(std::chrono::microseconds(FRAME_DELAY - FRAME_TIME.count()));
+	// populate tilemap
+	for (int i = 0; i < tilemapSizeX; i++) {
+		for (int j = 0; j < tilemapSizeY; j++) {
+			tilemap[i][j] = calculateTileColor(i, j);
 		}
-		runNumber++;
 	}
+
+	updateVars(); // Renderering vars
+	// render background to screen once
+	clearScreen(0x000000);
+	renderBackground();
+	renderTilemap(tilemap);
+	StretchDIBits(hdc, 0, 0, renderer.width, renderer.height, 0, 0, renderer.width, renderer.height,
+		renderer.memory, &renderer.bitmap_info, DIB_RGB_COLORS, SRCCOPY);
+
+	do {
+		choiceMade = -1;
+
+		uint32 vk_code;
+
+		MSG message;
+		if (PeekMessage(&message, window, 0, 0, PM_REMOVE)) {
+			switch (message.message) {
+				case WM_KEYDOWN: {
+					vk_code = static_cast<uint32>(message.wParam);
+					switch (vk_code) {
+						case VK_ESCAPE:
+							choiceMade = 0;
+							break;
+						case VK_SPACE:
+							choiceMade = 1;
+							break;
+					}
+				} break;
+			}
+
+			TranslateMessage(&message);
+			DispatchMessageA(&message);
+		}
+
+		// Create Game
+		if (choiceMade == 1) {
+			//***************DATA COLLECTION***************
+			std::ofstream writeFile;
+			writeFile.open("food_positions.txt", std::ofstream::app);
+			writeFile << "\n";
+			writeFile.close();
+			//***************DATA COLLECTION***************
+
+			ObjectManager objectManager;
+			auto& food = (objectManager.addObject<FoodObject>(APPLERED, 1));
+			auto& player = (objectManager.addObject<PlayerObject>(BEAUTIFULBLUE));
+			auto& score = (objectManager.addObject<ScoreObject>());
+
+			Game* game = new Game(&window, &hdc, &objectManager, &food, &player, &score);
+
+			// Framerate lock
+			int frames = getFPS();
+
+			const int FPS = frames;
+			const int FRAME_DELAY = 1000000 / FPS;
+
+
+			game->init();
+			while (running) {
+				auto frameBegin = std::chrono::high_resolution_clock::now();
+
+				game->draw();
+				game->input();
+				game->update();
+
+				auto frameEnd = std::chrono::high_resolution_clock::now();
+				const auto FRAME_TIME = std::chrono::duration_cast<std::chrono::microseconds>(frameEnd - frameBegin);
+
+				if (FRAME_DELAY > FRAME_TIME.count()) {
+					std::this_thread::sleep_for(std::chrono::microseconds(FRAME_DELAY - FRAME_TIME.count()));
+				}
+				runNumber++;
+			}
+		}
+	} while (choiceMade != 0);
 }
