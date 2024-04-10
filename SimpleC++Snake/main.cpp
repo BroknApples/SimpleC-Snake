@@ -91,15 +91,15 @@ int __stdcall WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdL
 		}
 	}
 
-	updateVars(); // Renderering vars
-	// render background to screen once
-	clearScreen(0x000000);
-	renderBackground();
-	renderTilemap(tilemap);
-	StretchDIBits(hdc, 0, 0, renderer.width, renderer.height, 0, 0, renderer.width, renderer.height,
-		renderer.memory, &renderer.bitmap_info, DIB_RGB_COLORS, SRCCOPY);
-
 	do {
+		updateVars(); // Renderering vars
+		// render background to screen once
+		clearScreen(0x000000);
+		renderBackground();
+		renderTilemap(tilemap);
+		StretchDIBits(hdc, 0, 0, renderer.width, renderer.height, 0, 0, renderer.width, renderer.height,
+					  renderer.memory, &renderer.bitmap_info, DIB_RGB_COLORS, SRCCOPY);
+
 		choiceMade = -1;
 
 		uint32 vk_code;
